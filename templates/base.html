@@ -1,0 +1,14 @@
+<html>
+    <head>
+      {% if title %}
+      <title>{{ title }} - Crypto Dashboard</title>
+      {% else %}
+      <title>Crypto Dashboard</title>
+      {% endif %}
+    </head>
+    <body>
+        <div>Crypto Dashboard: <a href="/index">Home</a></div>
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+</html>

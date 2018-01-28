@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Hello, {{ user.username }}!</h1>
+    {% for stock in stocks %}
+    <div><p>{{ stock }}: <b>{{ stocks[stock]["highestBid"] }}</b></p></div>
+    {% endfor %}
+{% endblock %}
