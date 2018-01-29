@@ -1,8 +1,54 @@
 {% extends "base.html" %}
 
 {% block content %}
+  <div class="container">
     <h1>Hello, {{ user.username }}!</h1>
-    {% for stock in stocks %}
-    <div><p>{{ stock }}: <b>{{ stocks[stock]["highestBid"] }}</b></p></div>
-    {% endfor %}
+    <hr />
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h2>List of my currencies:</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Value</th>
+              <th scope="col">$$ Value</th>
+              <th scope="col">BTC Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for stock in my_stocks %}
+              <tr>
+                <th scope="row">{{ stock }}</th>
+                <td> {{ my_stocks[stock] }}
+                <td> $$ </td>
+                <td> BTC </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-4">
+        <h2>List of all currencies:</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for stock in stocks %}
+              <tr>
+                <th scope="row">{{ stock }}</th>
+                <td> {{ stocks[stock]["highestBid"] }}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 {% endblock %}
