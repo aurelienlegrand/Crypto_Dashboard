@@ -11,14 +11,13 @@ app = Flask(__name__)
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
 def index():
-    user = ApiUser('Aurelien')
-
     # Gets all cryptocurrencies ticker value
     stocks = requests.get('https://poloniex.com/public?command=returnTicker').json()
 
-    # TODO : Filter currencies
+    user = ApiUser('Aurelien')
+    user.update_prices(stocks)
 
-    return render_template('index.html', title='Home', user=user, stocks=stocks, my_stocks=user.get_my_currencies())
+    return render_template('index.html', title='Home', user=user, stocks=stocks, my_stocks=user.my_currencies)
 
 # Main
 

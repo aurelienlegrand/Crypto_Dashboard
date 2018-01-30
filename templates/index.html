@@ -13,18 +13,18 @@
           <thead>
             <tr>
               <th scope="col">Name</th>
-              <th scope="col">Value</th>
-              <th scope="col">$$ Value</th>
+              <th scope="col">Owned</th>
               <th scope="col">BTC Value</th>
+              <th scope="col">USD Value</th>
             </tr>
           </thead>
           <tbody>
             {% for stock in my_stocks %}
               <tr>
                 <th scope="row">{{ stock }}</th>
-                <td> {{ my_stocks[stock] }}
-                <td> $$ </td>
-                <td> BTC </td>
+                <td> {{ my_stocks[stock]["owned"] }} </td>
+                <td> {{ my_stocks[stock]["btc_value"] }} BTC</td>
+                <td> {{ my_stocks[stock]["usdt_value"] }} $</td>
               </tr>
             {% endfor %}
           </tbody>

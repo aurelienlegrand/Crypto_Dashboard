@@ -12,6 +12,7 @@ class ApiUser:
         self.configFile = configFile
         self.key = None
         self.secret = None
+        self.my_currencies = None
         self.load_config()
         self.get_my_currencies()
 
@@ -45,5 +46,23 @@ class ApiUser:
         if currencies:
             for curr in currencies:
                 if float(currencies[curr]) > 0:
-                    my_currencies[curr] = currencies[curr]
-            return my_currencies
+                    my_currencies[curr] = {}
+                    my_currencies[curr]["owned"] = currencies[curr]
+
+            self.my_currencies = my_currencies
+
+    def update_prices(self, stocks):
+        """ Updates BTC and USD values for user currencies. """
+
+        for curr in self.my_currencies:
+            if "BTC_" + curr in stocks:
+                self.my_currencies[curr]["btc_value"] = float(stocks["BTC_" + curr]["highestBid"]) * float(self.my_currencies[curr]["owned"])
+            else:
+                self.my_currencies[curr]["btc_value"] = "Not found."
+                
+            if "USDT_" + curr in stocks:
+                self.my_currencies[curr]["usdt_value"] = float(stocks["USDT_" + curr]["highestBid"]) * float(self.my_currencies[curr]["owned"])
+            elif self.my_currencies[curr]["btc_value"] != "Not found.":
+                self.my_currencies[curr]["usdt_value"] = float(self.my_currencies[curr]["btc_value"]) * float(stocks["USDT_BTC"]["highestBid"])
+            else:
+                self.my_currencies[curr]["usdt_value"] = "Not found."
