@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <!-- import Chart.js plugin script -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js'></script>
+  <div class="container">
+    <h1>History of cryptocurrencies values</h1>
+    <canvas id="history-chart" width="800" height="450"></canvas>
+    <script>
+      new Chart(document.getElementById("history-chart"), {
+        type: 'line',
+        data: {
+          labels: [{% for time in times %} "{{time}}", {% endfor %}],
+          datasets: [
+            {% for currency in currencies_data %}
+            {% if loop.index0 > 0 %},{% endif %}
+            {
+              data: {{currencies_data[currency]['values']}},
+              label: "{{currency}}",
+              borderColor: "{{currencies_data[currency]['color']}}",
+              fill: false
+            }
+            {% endfor %}
+          ]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'cryptocurrencies values'
+          }
+        }
+        });
+    </script>
+  </div>
+{% endblock %}

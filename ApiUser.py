@@ -59,7 +59,7 @@ class ApiUser:
                 self.my_currencies[curr]["btc_value"] = float(stocks["BTC_" + curr]["highestBid"]) * float(self.my_currencies[curr]["owned"])
             else:
                 self.my_currencies[curr]["btc_value"] = "Not found."
-                
+
             if "USDT_" + curr in stocks:
                 self.my_currencies[curr]["usdt_value"] = float(stocks["USDT_" + curr]["highestBid"]) * float(self.my_currencies[curr]["owned"])
             elif self.my_currencies[curr]["btc_value"] != "Not found.":
