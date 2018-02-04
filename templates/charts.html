@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% set active_page = "charts" %}
 
 {% block content %}
   <!-- import Chart.js plugin script -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js'></script>
   <div class="container">
-    <h1>History of cryptocurrencies values</h1>
+    <h1>Charts of Cryptocurrencies Values</h1>
     <canvas id="history-chart" width="800" height="450"></canvas>
     <script>
       new Chart(document.getElementById("history-chart"), {
@@ -18,7 +19,12 @@
               data: {{currencies_data[currency]['values']}},
               label: "{{currency}}",
               borderColor: "{{currencies_data[currency]['color']}}",
-              fill: false
+              fill: false,
+              {% if currencies_data[currency]['values'][0] > 100 %}
+              yAxisID: '1000'
+              {% else %}
+              yAxisID: '1'
+              {% endif %}
             }
             {% endfor %}
           ]
@@ -26,7 +32,18 @@
         options: {
           title: {
             display: true,
-            text: 'cryptocurrencies values'
+            text: 'Cryptocurrencies Values'
+          },
+          scales: {
+            yAxes: [{
+              id: '1000',
+              type: 'linear',
+              position: 'left'
+            }, {
+              id: '1',
+              type: 'linear',
+              position: 'right'
+            }]
           }
         }
         });
